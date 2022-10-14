@@ -3,7 +3,7 @@ name: ActionsTestParent
 on: 
   pull_request:
     paths-ignore:
-      - "**/*.md"
+#       - "**/*.md"
       - "website/**"
 
 jobs:
