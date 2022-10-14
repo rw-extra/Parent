@@ -11,14 +11,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+#       - name: "Start Check"
+#         run: |
+#           curl \
+#           -X POST \
+#           -H "Accept: application/vnd.github+json" \
+#           -H "Bearer: ${{ secrets.GITHUB_TOKEN }}" \
+#           https://api.github.com/repos/rw-extra/Parent/check-runs \
+#           -d '{"name":"integration_test","head_sha","${{ github.head_ref }}","status":"in_progress"}'
+
       - name: "Start Check"
-        run: |
-          curl \
-          -X POST \
-          -H "Accept: application/vnd.github+json" \
-          -u ${{ github.token }} \
-          https://api.github.com/repos/rw-extra/Parent/check-runs \
-          -d '{"name":"integration_test","head_sha","${{ github.head_ref }}","status":"in_progress"}'
+        uses: LouisBrunner/checks-action@v1.3.1
+        with:
+          name: "integration_test"
+          status: "in_progress"
           
 #       - name: "Run External Workflow"
 #         run: |
