@@ -25,6 +25,7 @@ jobs:
         with:
           name: "integration_test"
           status: "in_progress"
+          token: ${{ secrets.GITHUB_TOKEN }}
           
 #       - name: "Run External Workflow"
 #         run: |
