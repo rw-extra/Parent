@@ -16,7 +16,7 @@ jobs:
           curl \
           -X POST \
           -H "Accept: application/vnd.github+json" \
-          -H "Bearer: ${{ github.token }}" \
+          -u ${{ github.token }} \
           https://api.github.com/repos/rw-extra/Parent/check-runs \
           -d '{"name":"integration_test","head_sha","${{ github.head_ref }}","status":"in_progress"}'
           
