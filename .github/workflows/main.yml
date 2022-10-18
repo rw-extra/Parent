@@ -1,37 +1,30 @@
 name: ActionsTestParent
 
 on: 
-  pull_request:
-    paths-ignore:
-#       - "**/*.md"
-      - "website/**"
+#   pull_request:
+#     paths-ignore:
+# #       - "**/*.md"
+#       - "website/**"
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-#       - name: "Start Check"
-#         run: |
-#           curl \
-#           -X POST \
-#           -H "Accept: application/vnd.github+json" \
-#           -H "Bearer: ${{ secrets.GITHUB_TOKEN }}" \
-#           https://api.github.com/repos/rw-extra/Parent/check-runs \
-#           -d '{"name":"integration_test","head_sha","${{ github.head_ref }}","status":"in_progress"}'
-
-      - name: "Start Check"
-        uses: LouisBrunner/checks-action@v1.3.1
-        with:
-          name: "integration_test"
-          status: "in_progress"
-          token: ${{ github.token }}
+      - name: Checkout
+        uses: actions/checkout@v2.5.0
+    
+      - name: "Let's get it started in here"
+        run: |
+          echo "Hello from parent in $pwd"
           
-#       - name: "Run External Workflow"
-#         run: |
-#           curl \
-#           -X POST \
-#           -H "Accept: application/vnd.github+json" \
-#           -u ${{ secrets.ACCESS_TOKEN }} \
-#           https://api.github.com/repos/OWNER/REPO/dispatches \
-#           -d '{"event_type":"start_test","client_payload":{"sha":"${{ github.head_ref }}"}}'
+      - name: Checkout child
+        uses: actions/checkout@v2.5.0
+        with:
+          repository: "rw-extra/Child"
+          ref: main
+          path: "build/Child"
+          
+      - name: Child thing
+        uses: rw-extra/Child/.github/workflows/call_me.yml@main
